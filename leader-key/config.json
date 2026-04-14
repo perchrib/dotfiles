@@ -1,0 +1,25 @@
+{
+  "actions" : [
+    {
+      "key" : "k",
+      "type" : "application",
+      "value" : "/Applications/kitty.app"
+    },
+    {
+      "key" : "s",
+      "type" : "application",
+      "value" : "/Applications/Slack.app"
+    },
+    {
+      "key" : "m",
+      "type" : "application",
+      "value" : "/Users/per-christian.berg/Applications/Spotify.app"
+    },
+    {
+      "key" : "c",
+      "type" : "application",
+      "value" : "/Applications/Google Chrome.app"
+    }
+  ],
+  "type" : "group"
+}
