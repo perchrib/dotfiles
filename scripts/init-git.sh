@@ -40,3 +40,7 @@ EOF
 set +x
 
 ssh-add --apple-use-keychain "$default_ssh_key_path"
+
+gh auth login
+
+gh ssh-key add "$default_ssh_key_path.pub"

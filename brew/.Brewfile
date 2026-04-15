@@ -1,0 +1,8 @@
+brew "gh"
+brew "neovim"
+brew "stow"
+cask "font-fira-code-nerd-font"
+cask "font-maple-mono"
+cask "kitty"
+cask "leader-key"
+cask "tiles"

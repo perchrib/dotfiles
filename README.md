@@ -1,12 +1,30 @@
 # Dotfiles
 
-## Usage
+## Install dotfiles on new machine (MAC OS only tested)
 
-Use `symlinks.txt` to store every dependencies to use the `stow` command.
+Requirements before start:
+ - git cli
+ - brew
 
+1. Clone the repo under the folder: `~/`
+
+2. Run inside `/dotfiles/brew`:
+``bash
+brew bundle install
+```
+3. Run inside `/dotfiles`
+```bash
+stow nvim brew kitty git zsh [other folder names...]
+```
+
+
+## Update .Brewfile
+
+
+Update brew dependencies:
 Example: 
 
 ```bash
-cat symlinks.txt | xargs -L 1 stow -v:
+brew bundle dump --global --force
 ```
 
