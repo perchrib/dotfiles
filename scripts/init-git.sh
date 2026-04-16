@@ -6,15 +6,18 @@ default_email="your_email@example.com"
 default_ssh_key_path="$HOME/.ssh/id_rsa"
 
 while true; do
-	read -r -p "Enter your git email, press enter for default: '$default_email': " email
-	email="${email:-$default_email}"
-	echo "You entered: '$email'"
-	read -r -p "Accept this email? [y/n] " ans
-	case "$ans" in
-		y) echo "Email accepted: $email"; break;;
-		n) echo "Okay — please re-enter."; ;;
-		*) echo "Please answer y or n.";;
-	esac
+  read -r -p "Enter your git email, press enter for default: '$default_email': " email
+  email="${email:-$default_email}"
+  echo "You entered: '$email'"
+  read -r -p "Accept this email? [y/n] " ans
+  case "$ans" in
+  y)
+    echo "Email accepted: $email"
+    break
+    ;;
+  n) echo "Okay — please re-enter." ;;
+  *) echo "Please answer y or n." ;;
+  esac
 done
 
 printf "${COLOR_RED}Make sure to type in a passphrase for the generated ssh key in the following procedure.\n"
@@ -29,7 +32,7 @@ eval "$(ssh-agent -s)"
 # enable xtrace/debugging (prints the command to stderr)
 set -x
 
-cat <<EOF > ~/.ssh/config
+cat <<EOF >~/.ssh/config
 Host github.com
   AddKeysToAgent yes
   UseKeychain yes

@@ -9,9 +9,10 @@ Requirements before start:
 1. Clone the repo under the folder: `~/`
 
 2. Run inside `/dotfiles/brew`:
-``bash
+```bash
 brew bundle install
 ```
+
 3. Run inside `/dotfiles`
 ```bash
 stow nvim brew kitty git zsh [other folder names...]
