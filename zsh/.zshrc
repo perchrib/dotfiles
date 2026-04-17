@@ -8,10 +8,12 @@ alias ls='ls -GF'
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-alias nvim-lazy="NVIM_APPNAME=lazyvim nvim"
 
-alias z="nvim-lazy $HOME/.zshrc"
-alias s='source $HOME/.zshrc'
+alias lazy="NVIM_APPNAME=lazyvim nvim"
+# alias nvim="NVIM_APPNAME= nvim"
+# Open zsh config in neovim with lazyvim config
+alias z="lazy $HOME/.zshrc"
+alias s="source $HOME/.zshrc"
 
 # Neovim switch between neovim configs
 function nvims() {
@@ -25,7 +27,7 @@ function nvims() {
   fi
   NVIM_APPNAME=$config nvim $@
 }
-bindkey -s ^n "nvims\n"
+#bindkey -s ^n "nvims\n"
 
 
 # Update secrets used as environment variables
