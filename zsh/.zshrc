@@ -1,3 +1,6 @@
+# Set the path to the lazygit config file
+export CONFIG_DIR="$HOME/.config/lazygit"
+
 # Source secrets export if the file exists
 [ -f "$HOME/.zsh_secrets_export" ] && source "$HOME/.zsh_secrets_export"
 
@@ -14,7 +17,7 @@ export NVM_DIR="$HOME/.nvm"
 alias lvim="NVIM_APPNAME=lazyvim nvim"
 # alias nvim="NVIM_APPNAME= nvim"
 # Open zsh config in neovim with lazyvim config
-alias z="nvim $HOME/.zshrc"
+alias z="lvim $HOME/.zshrc"
 alias s="source $HOME/.zshrc"
 
 # Neovim switch between neovim configs
