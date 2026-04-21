@@ -20,8 +20,8 @@ while true; do
   esac
 done
 
-printf "${COLOR_RED}Make sure to type in a passphrase for the generated ssh key in the following procedure.\n"
-printf "Otherwise this script will not work ${COLOR_DEFAULT}\n"
+printf "%sMake sure to type in a passphrase for the generated ssh key in the following procedure.\n" "${COLOR_RED}"
+printf "Otherwise this script will not work\n%s" "${COLOR_DEFAULT}"
 
 # Generate ssh keys for github
 # This may change in the future see:

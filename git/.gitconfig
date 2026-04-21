@@ -3,3 +3,5 @@
 [user]
 	email = per-christian.berg
 	name = perchrib
+[core]
+  editor = NVIM_APPNAME=lazyvim nvim

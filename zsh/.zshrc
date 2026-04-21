@@ -1,18 +1,20 @@
-source "$HOME/.zsh_secrets_export"
+# Source secrets export if the file exists
+[ -f "$HOME/.zsh_secrets_export" ] && source "$HOME/.zsh_secrets_export"
 
 PROMPT='%F{green}[%T]%f@%F{blue}%~%f> '
 
 alias dot='cd ~/dotfiles'
 alias ls='ls -GF'
 
+# Tips from HomeBrew installation
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-alias lazy="NVIM_APPNAME=lazyvim nvim"
+alias lvim="NVIM_APPNAME=lazyvim nvim"
 # alias nvim="NVIM_APPNAME= nvim"
 # Open zsh config in neovim with lazyvim config
-alias z="lazy $HOME/.zshrc"
+alias z="nvim $HOME/.zshrc"
 alias s="source $HOME/.zshrc"
 
 # Neovim switch between neovim configs
@@ -43,4 +45,7 @@ function update-secrets() {
   source "$HOME/.zsh_secrets_export"
 }
 
+function brew-update-file() {
+	brew bundle dump --global --force
+}
 
