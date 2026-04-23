@@ -55,8 +55,6 @@ function update-secrets() {
   chmod +x $filepath_update_secrets
   # Run bash script
   . $filepath_update_secrets
-  # Update environment variables where the secrets is stored
-  source "$HOME/.zsh_secrets_export"
 }
 
 function brew-update-file() {
