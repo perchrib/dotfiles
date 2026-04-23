@@ -17,7 +17,8 @@ PROMPT='@%F{blue}%~%F{red}$(parse_git_branch)%f> '
 
 alias dot='cd ~/dotfiles'
 alias tn='cd ~/git/nrk/tilt-tekstern/'
-alias ls='ls -GF'
+
+alias ls='ls -GF -C'
 
 # Tips from HomeBrew installation
 export NVM_DIR="$HOME/.nvm"
