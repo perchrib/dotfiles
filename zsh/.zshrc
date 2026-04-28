@@ -69,3 +69,23 @@ function brew-update-file() {
 	brew bundle dump --global --force
 }
 
+# Print current kubectl context, cluster, and namespace
+k() {
+  local CURRENT_CONTEXT CURRENT_CLUSTER CURRENT_NAMESPACE
+
+  CURRENT_CONTEXT=$(kubectl config current-context 2>/dev/null)
+  CURRENT_CLUSTER=$(kubectl config view -o jsonpath="{.contexts[?(@.name=='$CURRENT_CONTEXT')].context.cluster}" 2>/dev/null)
+  CURRENT_NAMESPACE=$(kubectl config view -o jsonpath="{.contexts[?(@.name=='$CURRENT_CONTEXT')].context.namespace}" 2>/dev/null)
+
+  [[ -z "$CURRENT_NAMESPACE" ]] && CURRENT_NAMESPACE="default"
+
+  # 🎨 Your chosen colors
+  local GREEN="\033[1;32m"
+  local YELLOW="\033[1;33m"
+  local RED="\033[1;31m"
+  local RESET="\033[0m"
+
+  echo -e "${RED}Current context:${RESET}   ${RED}$CURRENT_CONTEXT${RESET}"
+  echo -e "${YELLOW}Current cluster:${RESET}   ${YELLOW}$CURRENT_CLUSTER${RESET}"
+  echo -e "${GREEN}Current namespace:${RESET} ${GREEN}$CURRENT_NAMESPACE${RESET}"
+}
