@@ -65,7 +65,7 @@ function update-secrets() {
   . $filepath_update_secrets
 }
 
-function brew-update-file() {
+function brew-dump() {
 	brew bundle dump --global --force
 }
 
