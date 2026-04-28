@@ -20,7 +20,7 @@ setopt PROMPT_SUBST
 NEWLINE=$'\n'
 PROMPT='@%F{blue}%~%F{red}$(parse_git_branch)%f${NEWLINE}> '
 
-alias sql-feed='sqlcmd -S localhost -U sa -P Secret1234 -d TeksternDb -Q "select * from Feed"'
+alias sql-feed="sqlcmd -S localhost -U sa -P Secret1234 -d TeksternDb -Q 'select * from Feed' $@"
 
 alias dot='cd ~/dotfiles'
 alias tn='cd ~/git/nrk/tilt-tekstern/'
