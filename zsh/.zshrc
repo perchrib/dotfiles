@@ -88,4 +88,5 @@ k() {
   echo -e "${RED}Current context:${RESET}   ${RED}$CURRENT_CONTEXT${RESET}"
   echo -e "${YELLOW}Current cluster:${RESET}   ${YELLOW}$CURRENT_CLUSTER${RESET}"
   echo -e "${GREEN}Current namespace:${RESET} ${GREEN}$CURRENT_NAMESPACE${RESET}"
+  echo -e "Note: switch context and namespace with <kubctx> and <kubens>"
 }
