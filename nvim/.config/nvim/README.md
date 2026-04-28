@@ -29,4 +29,6 @@ Example connection string for SQL Server:
 
 * sqlserver://sa:Secret1234@localhost/TeksternDb
 * sqlserver://sa:Secret1234@localhost:1433/TeksternDb?authentication=ActiveDirectoryDefault
-  * Note: need to login in in terminal with `az login` first, and also need to have the Azure CLI installed with
+  * Note: enables login with azure ad. Need to login in in
+  terminal with `az login` first, and also need to have the
+  Azure CLI installed with brew
