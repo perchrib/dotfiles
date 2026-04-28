@@ -1,6 +1,10 @@
 # Set the path to the lazygit config file
 export CONFIG_DIR="$HOME/.config/lazygit"
 
+# Set the width of the output for SQLCMD to prevent too large columns width
+export SQLCMDMAXVARTYPEWIDTH=30
+export SQLCMDMAXFIXEDTYPEWIDTH=30
+
 # Source secrets export if the file exists
 [ -f "$HOME/.zsh_secrets_export" ] && source "$HOME/.zsh_secrets_export"
 
@@ -13,7 +17,10 @@ function parse_git_branch() {
 
 setopt PROMPT_SUBST
 # PROMPT='%F{green}[%T]%f@%F{blue}%~%F{red}$(parse_git_branch)%f> '
-PROMPT='@%F{blue}%~%F{red}$(parse_git_branch)%f> '
+NEWLINE=$'\n'
+PROMPT='@%F{blue}%~%F{red}$(parse_git_branch)%f${NEWLINE}> '
+
+alias sql-feed='sqlcmd -S localhost -U sa -P Secret1234 -d TeksternDb -Q "select * from Feed"'
 
 alias dot='cd ~/dotfiles'
 alias tn='cd ~/git/nrk/tilt-tekstern/'
