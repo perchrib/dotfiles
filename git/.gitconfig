@@ -4,4 +4,4 @@
 	email = per-christian.berg
 	name = perchrib
 [core]
-  editor = NVIM_APPNAME=lazyvim nvim
+  editor = NVIM_APPNAME=nvim

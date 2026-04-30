@@ -20,6 +20,14 @@ git clone https://github.com/perchrib/dotfiles.git
 ./.scripts/main-install.sh
 ```
 
+1. Installing the brew dependencies: **nrk8s** depends on:
+
+* tap "azure/kubelogin"
+* tap "nrkno/hylla"
+
+When installing this package, git require you to input credentials. Git username and password.
+This will not work with user password, you need to use a personal access token (PAT) instead of your password. You can create a PAT in your GitHub account settings.
+
 ### Installation Alternative 2
 
 1. Run inside `/dotfiles/brew`:
