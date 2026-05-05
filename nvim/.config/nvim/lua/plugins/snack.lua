@@ -2,14 +2,14 @@ return {
   "folke/snacks.nvim",
   keys = {
     {
-      "<leader>t",
+      "<leader>fl",
       function()
         Snacks.scratch({ icon = " ", name = "Todo", ft = "markdown" })
       end,
       desc = "Todo List",
     },
     {
-      "<leader>T",
+      "<leader>fL",
       function()
         Snacks.scratch({ icon = " ", name = "Todo", ft = "markdown", file = "~/TODO.md" })
       end,
@@ -17,6 +17,11 @@ return {
     },
   },
   opts = {
+    zen = {
+      toggles = {
+        dim = false,
+      },
+    },
     picker = {
       -- ui_select set to used by copilotChat.nvim package.
       -- ui_select = true,
