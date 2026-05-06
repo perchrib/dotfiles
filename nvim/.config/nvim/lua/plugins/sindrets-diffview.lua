@@ -9,6 +9,7 @@ return {
   -- Optional: Configure keybindings, e.g., to toggle diffview
   keys = {
     { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
+    { "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "Diffview Close" },
   },
-  opts = {},
+  opts = {}, -- Runs setup() automatically
 }
