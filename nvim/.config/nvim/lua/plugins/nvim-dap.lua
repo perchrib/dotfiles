@@ -1,28 +1,18 @@
 return {
 	"mfussenegger/nvim-dap",
+	dependencies = {
+		"rcarriga/nvim-dap-ui",
+		-- virtual text for the debugger
+		{
+			"theHamsta/nvim-dap-virtual-text",
+			opts = {},
+		},
+	},
+  -- stylua: ignore
 	keys = {
-		{
-			"<leader><F10>",
-			function()
-				require("dap").step_over()
-			end,
-			desc = "Step Over",
-		},
-		{
-			"<leader><F11>",
-			function()
-				require("dap").step_into()
-			end,
-			desc = "Step Into",
-		},
-		{
-			"<leader>T",
-			function()
-				require("dap").clear_breakpoints()
-				require("dap").terminate()
-			end,
-			desc = "Clear Breakpoints",
-		},
+		{ "<F10>", function() require("dap").step_over() end, desc = "Step Over" },
+		{ "<F11>", function() require("dap").step_into() end, desc = "Step Into" },
+		{ "<leader>dT", function() require("dap").clear_breakpoints() require("dap").terminate() end, desc = "Terminate & Clear Breakpoints" },
 	},
 	-- config = function()
 	--   local dap = require("dap")
