@@ -1,7 +1,40 @@
 [alias]
-	s = status
+  s = status
+
 [user]
-	email = per-christian.berg
-	name = perchrib
+  email = per-christian.berg
+  name = perchrib
+
 [core]
-  editor = NVIM_APPNAME=nvim
+  editor = nvim
+  pager = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  dark = true
+  side-by-side = false
+  line-numbers = true
+  features = decorations
+  tabs = 2
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+
+[merge]
+  conflictstyle = zdiff3
+
+[diff]
+  tool = nvim_difftool
+  algorithm = histogram
+  colorMoved = default
+
+[difftool "nvim_difftool"]
+  cmd = nvim -c "packadd nvim.difftool" -c "DiffTool $LOCAL $REMOTE"
+
+[difftool]
+  prompt = false

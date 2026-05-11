@@ -9,14 +9,14 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 -- Yank full file path to clipboard
 
 vim.keymap.set("n", "yp", function()
-  local path = vim.fn.expand("%:p")
-  vim.fn.setreg("+", path)
-  vim.notify("Yanked full path: " .. path)
+	local path = vim.fn.expand("%:p")
+	vim.fn.setreg("+", path)
+	vim.notify("Yanked full path: " .. path)
 end, { desc = "Yank full file path to clipboard" })
 
 -- Yank relative file path to clipboard
 vim.keymap.set("n", "yP", function()
-  local path = vim.fn.expand("%")
-  vim.fn.setreg("+", path)
-  vim.notify("Yanked relative path: " .. path)
+	local path = vim.fn.expand("%")
+	vim.fn.setreg("+", path)
+	vim.notify("Yanked relative path: " .. path)
 end, { desc = "Yank relative file path to clipboard" })

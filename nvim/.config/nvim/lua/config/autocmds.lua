@@ -6,3 +6,6 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+-- Auto convert tabs to spaces on save. This is convinent when copying text from other sources like web pages.
+-- When git diff it will not show changes due to tabs vs spaces. It will also remove trailing whitespaces.

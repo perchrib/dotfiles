@@ -5,17 +5,22 @@ export CONFIG_DIR="$HOME/.config/lazygit"
 export SQLCMDMAXVARTYPEWIDTH=30
 export SQLCMDMAXFIXEDTYPEWIDTH=30
 
+# Tips from HomeBrew installation
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 # Source secrets export if the file exists
 [ -f "$HOME/.zsh_secrets_export" ] && source "$HOME/.zsh_secrets_export"
 
-autoload -U compinit; compinit
+autoload -Uz compinit; compinit
 
+setopt PROMPT_SUBST
 
 function parse_git_branch() {
     git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
 }
 
-setopt PROMPT_SUBST
 # PROMPT='%F{green}[%T]%f@%F{blue}%~%F{red}$(parse_git_branch)%f> '
 NEWLINE=$'\n'
 PROMPT='@%F{blue}%~%F{red}$(parse_git_branch)%f${NEWLINE}> '
@@ -26,11 +31,6 @@ alias dot='cd ~/dotfiles'
 alias tn='cd ~/git/nrk/tilt-tekstern/'
 
 alias ls='ls -GF -C'
-
-# Tips from HomeBrew installation
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # alias lvim="NVIM_APPNAME=lazyvim nvim"
 # alias nvim="NVIM_APPNAME= nvim"
