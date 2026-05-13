@@ -13,7 +13,13 @@ export NVM_DIR="$HOME/.nvm"
 # Source secrets export if the file exists
 [ -f "$HOME/.zsh_secrets_export" ] && source "$HOME/.zsh_secrets_export"
 
+
+# Initialize Zsh completion system
 autoload -Uz compinit; compinit
+# Enable globdots to include hidden files in completion
+_comp_options+=(globdots)
+# Enable kubectl autocompletion
+source <(kubectl completion zsh)
 
 setopt PROMPT_SUBST
 
@@ -70,7 +76,7 @@ function brew-dump() {
 }
 
 # Print current kubectl context, cluster, and namespace
-k() {
+function k() {
   local CURRENT_CONTEXT CURRENT_CLUSTER CURRENT_NAMESPACE
 
   CURRENT_CONTEXT=$(kubectl config current-context 2>/dev/null)
