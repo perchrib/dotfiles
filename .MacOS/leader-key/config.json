@@ -24,6 +24,11 @@
       "key" : "b",
       "type" : "application",
       "value" : "/Applications/Brave Browser.app"
+    },
+    {
+      "key" : "v",
+      "type" : "application",
+      "value" : "/Applications/Vivaldi.app"
     }
   ],
   "type" : "group"

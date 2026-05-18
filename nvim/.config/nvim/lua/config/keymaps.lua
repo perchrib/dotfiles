@@ -7,7 +7,6 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- Yank full file path to clipboard
-
 vim.keymap.set("n", "yp", function()
 	local path = vim.fn.expand("%:p")
 	vim.fn.setreg("+", path)
