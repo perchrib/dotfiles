@@ -1,7 +1,7 @@
 lastupdatecheck: 0
 recentrepos:
-    - /Users/per-christian.berg/git/nrk/tilt-tekstern
     - /Users/per-christian.berg/dotfiles
+    - /Users/per-christian.berg/git/nrk/tilt-tekstern
 startuppopupversion: 5
 didshowhunkstaginghint: true
 lastversion: 0.61.1
@@ -16,9 +16,15 @@ githubPullRequests:
           state: MERGED
           url: https://github.com/nrkno/tilt-tekstern/pull/147
           headRepositoryOwner: nrkno
+        - headRefName: tilt-808-transcription-fix
+          number: 150
+          title: 'feat: Add ingress for transcription service'
+          state: OPEN
+          url: https://github.com/nrkno/tilt-tekstern/pull/150
+          headRepositoryOwner: nrkno
         - headRefName: tilt-808-transcription
           number: 145
           title: 'feat: Transcription Service'
-          state: OPEN
+          state: MERGED
           url: https://github.com/nrkno/tilt-tekstern/pull/145
           headRepositoryOwner: nrkno

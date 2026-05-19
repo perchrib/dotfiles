@@ -23,6 +23,12 @@ return {
 				dim = false,
 			},
 		},
+		image = {
+			enabled = true,
+			doc = {
+				inline = false,
+			},
+		},
 		picker = {
 			-- ui_select set to used by copilotChat.nvim package.
 			-- ui_select = true,
