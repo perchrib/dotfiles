@@ -13,7 +13,7 @@ githubPullRequests:
         - headRefName: tilt-808-transcription-fix
           number: 150
           title: 'feat: Add ingress for transcription service'
-          state: OPEN
+          state: MERGED
           url: https://github.com/nrkno/tilt-tekstern/pull/150
           headRepositoryOwner: nrkno
         - headRefName: tilt-808-transcription
@@ -27,4 +27,10 @@ githubPullRequests:
           title: 'feat: Add header to Hurtigtasten'
           state: MERGED
           url: https://github.com/nrkno/tilt-tekstern/pull/147
+          headRepositoryOwner: nrkno
+        - headRefName: TILT-833-lag-tekstblokk-felt
+          number: 151
+          title: 'feat: Add text block field to Hurtigtasten'
+          state: MERGED
+          url: https://github.com/nrkno/tilt-tekstern/pull/151
           headRepositoryOwner: nrkno

@@ -13,13 +13,17 @@ export NVM_DIR="$HOME/.nvm"
 # Source secrets export if the file exists
 [ -f "$HOME/.zsh_secrets_export" ] && source "$HOME/.zsh_secrets_export"
 
-
 # Initialize Zsh completion system
 autoload -Uz compinit; compinit
+
 # Enable globdots to include hidden files in completion
 _comp_options+=(globdots)
+
 # Enable kubectl autocompletion
 source <(kubectl completion zsh)
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 setopt PROMPT_SUBST
 
@@ -71,8 +75,34 @@ function update-secrets() {
   . $filepath_update_secrets
 }
 
+# Open urls from laspass
+# Used with pipe ie: urls | xarg curl | jq, curl $(urls) | jq, websocat $(urls)
+function urls() {
+  lpass show --notes .urls | tr ' ' '\n' | fzf --prompt=" Open URL  " --height=~50% --layout=reverse --border --exit-0
+}
+
+function get() {
+  if [[ "$1" == "-j" ]]; then
+    curl $(urls) | jq
+  else
+    curl $(urls)
+  fi
+}
+
 function brew-dump() {
 	brew bundle dump --global --force
+}
+
+# Open Jira issues assigned to me and not in Done or Won't fix status
+# When in the list, copy key with <C-k>, <v> to view, <m> to update status
+function jira() {
+  # echo("Usage: j [options]")
+  if [[ "$1" == "me" ]]; then
+    echo "HIT HERE"
+    command jira issue list -s~"Done" -s~"Won't fix" -w
+  else
+    command jira "$@"
+  fi
 }
 
 # Print current kubectl context, cluster, and namespace

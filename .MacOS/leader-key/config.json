@@ -16,11 +16,6 @@
       "value" : "/Users/per-christian.berg/Applications/Spotify.app"
     },
     {
-      "key" : "c",
-      "type" : "application",
-      "value" : "/Applications/Google Chrome.app"
-    },
-    {
       "key" : "b",
       "type" : "application",
       "value" : "/Applications/Brave Browser.app"
@@ -29,6 +24,40 @@
       "key" : "v",
       "type" : "application",
       "value" : "/Applications/Vivaldi.app"
+    },
+    {
+      "key" : "c",
+      "type" : "application",
+      "value" : "/Applications/Google Chrome.app"
+    },
+    {
+      "actions" : [
+        {
+          "iconPath" : "list.bullet.clipboard",
+          "key" : "b",
+          "label" : "Jira Board",
+          "type" : "url",
+          "value" : "https://nrknyemedier.atlassian.net/jira/software/c/projects/TILT/boards/764"
+        },
+        {
+          "iconPath" : "calendar.and.person",
+          "key" : "c",
+          "label" : "Calendar",
+          "type" : "url",
+          "value" : "https://calendar.google.com/calendar/u/0/r"
+        },
+        {
+          "iconPath" : "mail",
+          "key" : "m",
+          "label" : "Mail",
+          "type" : "url",
+          "value" : "https://mail.google.com/mail/u/0/#inbox"
+        }
+      ],
+      "iconPath" : "link.badge.plus",
+      "key" : "j",
+      "label" : "URLs",
+      "type" : "group"
     }
   ],
   "type" : "group"
