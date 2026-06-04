@@ -9,28 +9,4 @@ customcommandshistory: []
 hidecommandlog: false
 githubPullRequests:
     /Users/per-christian.berg/dotfiles: []
-    /Users/per-christian.berg/git/nrk/tilt-tekstern:
-        - headRefName: tilt-808-transcription-fix
-          number: 150
-          title: 'feat: Add ingress for transcription service'
-          state: MERGED
-          url: https://github.com/nrkno/tilt-tekstern/pull/150
-          headRepositoryOwner: nrkno
-        - headRefName: tilt-808-transcription
-          number: 145
-          title: 'feat: Transcription Service'
-          state: MERGED
-          url: https://github.com/nrkno/tilt-tekstern/pull/145
-          headRepositoryOwner: nrkno
-        - headRefName: TILT-832-lag-topplinje
-          number: 147
-          title: 'feat: Add header to Hurtigtasten'
-          state: MERGED
-          url: https://github.com/nrkno/tilt-tekstern/pull/147
-          headRepositoryOwner: nrkno
-        - headRefName: TILT-833-lag-tekstblokk-felt
-          number: 151
-          title: 'feat: Add text block field to Hurtigtasten'
-          state: MERGED
-          url: https://github.com/nrkno/tilt-tekstern/pull/151
-          headRepositoryOwner: nrkno
+    /Users/per-christian.berg/git/nrk/tilt-tekstern: []

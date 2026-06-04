@@ -1,5 +1,6 @@
 [alias]
   s = status
+	sw = "!git switch $(git branch -a|sed 's#remotes/[^/]*/##'|fzf)"
 
 [user]
   email = per-christian.berg

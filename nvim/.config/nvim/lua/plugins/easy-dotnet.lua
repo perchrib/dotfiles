@@ -128,8 +128,8 @@ return {
 					end,
 				},
 				diagnostics = {
-					default_severity = "error",
-					setqflist = false,
+					default_severity = "warning",
+					setqflist = true,
 				},
 				outdated = {
 					mappings = {

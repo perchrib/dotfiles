@@ -1,6 +1,7 @@
 return {
 	"folke/snacks.nvim",
 	keys = {
+		-- Disable default keymaps, we will set our own to enable DiffView
 		{ "<Leader>gd", false },
 		{
 			"<leader>fl",
@@ -9,13 +10,13 @@ return {
 			end,
 			desc = "Todo List",
 		},
-		{
-			"<leader>fL",
-			function()
-				Snacks.scratch({ icon = " ", name = "Todo", ft = "markdown", file = "~/TODO.md" })
-			end,
-			desc = "Todo List",
-		},
+		-- {
+		-- 	"<leader>fL",
+		-- 	function()
+		-- 		Snacks.scratch({ icon = " ", name = "Todo", ft = "markdown", file = "~/TODO.md" })
+		-- 	end,
+		-- 	desc = "Todo List",
+		-- },
 	},
 	opts = {
 		zen = {

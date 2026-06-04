@@ -1,5 +1,15 @@
+# Bind Keys (This works by default, but not with tmux)
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+
 # Set the path to the lazygit config file
 export CONFIG_DIR="$HOME/.config/lazygit"
+
+# Set the default editor
+export EDITOR='nvim'
+
 
 # Set the width of the output for SQLCMD to prevent too large columns width
 export SQLCMDMAXVARTYPEWIDTH=30
@@ -16,21 +26,27 @@ export NVM_DIR="$HOME/.nvm"
 # Initialize Zsh completion system
 autoload -Uz compinit; compinit
 
+# Git gh cli completion
+eval "$(gh completion -s zsh)"
+
 # Enable globdots to include hidden files in completion
 _comp_options+=(globdots)
 
 # Enable kubectl autocompletion
 source <(kubectl completion zsh)
 
+# Enable npm autocompletion
+eval "$(npm completion 2>/dev/null)" 
+
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
+# Enable prompt substitution to allow command output in the prompt
 setopt PROMPT_SUBST
 
 function parse_git_branch() {
     git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
 }
-
 # PROMPT='%F{green}[%T]%f@%F{blue}%~%F{red}$(parse_git_branch)%f> '
 NEWLINE=$'\n'
 PROMPT='@%F{blue}%~%F{red}$(parse_git_branch)%f${NEWLINE}> '
@@ -39,6 +55,7 @@ alias sql-feed="sqlcmd -S localhost -U sa -P Secret1234 -d TeksternDb -Q 'select
 
 alias dot='cd ~/dotfiles'
 alias tn='cd ~/git/nrk/tilt-tekstern/'
+alias tb='cd ~/git/nrk/tilt-tekstebanken/'
 
 alias ls='ls -GF -C'
 

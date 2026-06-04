@@ -32,3 +32,15 @@ Example connection string for SQL Server:
   * Note: enables login with azure ad. Need to login in in
   terminal with `az login` first, and also need to have the
   Azure CLI installed with brew
+
+## Hotkeys - Workflows
+
+### Mac Specific
+
+* <Ctrl+Cmd+f> Toggle full screen mode for current window
+
+### Neovim/LazyVim
+
+#### Command Mode
+
+*
