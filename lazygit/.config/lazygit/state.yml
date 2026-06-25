@@ -1,7 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
-    - /Users/per-christian.berg/dotfiles
     - /Users/per-christian.berg/git/nrk/tilt-tekstern
+    - /Users/per-christian.berg/git/nrk/tilt-tekstebanken
+    - /Users/per-christian.berg/dotfiles
 startuppopupversion: 5
 didshowhunkstaginghint: true
 lastversion: 0.61.1
@@ -9,4 +10,11 @@ customcommandshistory: []
 hidecommandlog: false
 githubPullRequests:
     /Users/per-christian.berg/dotfiles: []
+    /Users/per-christian.berg/git/nrk/tilt-tekstebanken:
+        - headRefName: quickfix-system-tests
+          number: 470
+          title: 'fix: System Tests update plint base url'
+          state: MERGED
+          url: https://github.com/nrkno/tilt-tekstebanken/pull/470
+          headRepositoryOwner: nrkno
     /Users/per-christian.berg/git/nrk/tilt-tekstern: []

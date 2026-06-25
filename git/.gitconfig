@@ -1,6 +1,8 @@
 [alias]
   s = status
-	sw = "!git switch $(git branch -a|sed 's#remotes/[^/]*/##'|fzf)"
+  sw = "!git switch $(git branch -a|sed 's#remotes/[^/]*/##'|sort -u|fzf)"
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
+	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
 
 [user]
   email = per-christian.berg
@@ -28,6 +30,7 @@
 
 [merge]
   conflictstyle = zdiff3
+  tool = nvimdiff
 
 [diff]
   tool = nvim_difftool
@@ -39,5 +42,9 @@
 
 [difftool]
   prompt = false
+
 [fetch]
 	prune = true
+
+[log]
+	date = auto:human

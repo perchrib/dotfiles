@@ -5,3 +5,6 @@
 -- vim.opt.completeopt = { "menu", "menuone", "noselect", "popup" }
 -- https://github.com/LazyVim/LazyVim/discussions/4830
 vim.g.ai_cmp = false
+
+-- Set new line at end of file
+vim.opt.fixeol = true

@@ -4,16 +4,25 @@ bindkey "^E" end-of-line
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
+# Enable vim keybindings in the terminal
+bindkey -v
+# Use escape key to switch to normal mode in vim keybindings, this is useful when using tmux which can interfere with the default "jk" or "jj" keybindings
+bindkey '^[' vi-cmd-mode
+# Map jk to escape (vi-cmd-mode)
+bindkey -M viins 'jk' vi-cmd-mode
+# Reduce the delay when switching modes (value is in hundredths of a second)
+export KEYTIMEOUT=15
+
 # Set the path to the lazygit config file
 export CONFIG_DIR="$HOME/.config/lazygit"
 
 # Set the default editor
 export EDITOR='nvim'
 
-
 # Set the width of the output for SQLCMD to prevent too large columns width
-export SQLCMDMAXVARTYPEWIDTH=30
-export SQLCMDMAXFIXEDTYPEWIDTH=30
+# export SQLCMDMAXVARTYPEWIDTH=30
+# export SQLCMDMAXFIXEDTYPEWIDTH=30
+export SQLCMD_FORMAT=vertical
 
 # Tips from HomeBrew installation
 export NVM_DIR="$HOME/.nvm"
@@ -106,17 +115,29 @@ function get() {
   fi
 }
 
+function web() {
+  open $(urls)
+}
+
 function brew-dump() {
 	brew bundle dump --global --force
 }
+
+# JIRA CLI configuration
+
+# Set the pager for Jira CLI to open in Neovim with specific settings (read-only)
+export JIRA_PAGER="nvim +Man!"
 
 # Open Jira issues assigned to me and not in Done or Won't fix status
 # When in the list, copy key with <C-k>, <v> to view, <m> to update status
 function jira() {
   # echo("Usage: j [options]")
-  if [[ "$1" == "me" ]]; then
-    echo "HIT HERE"
+  if [[ "$1" == "m" ]]; then
+    command jira issue list -s~"Done" -s~"Won't fix" -a$(jira me)
+  elif [[ "$1" == "w" ]]; then
     command jira issue list -s~"Done" -s~"Won't fix" -w
+  elif [[ "$1" == "do" ]]; then
+    command jira issue list -s"To Do" --order-by rank --reverse
   else
     command jira "$@"
   fi

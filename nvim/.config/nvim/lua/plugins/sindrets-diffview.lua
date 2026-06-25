@@ -6,10 +6,20 @@ return {
 		"DiffviewToggleFiles",
 		"DiffviewFocusFiles",
 	},
-	-- Optional: Configure keybindings, e.g., to toggle diffview
 	keys = {
-		{ "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
-		{ "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "Diffview Close" },
+		{
+			"<leader>gdD",
+			function()
+				local lib = require("diffview.lib")
+				local view = lib.get_current_view()
+				if view then
+					vim.cmd("DiffviewClose")
+				else
+					vim.cmd("DiffviewOpen")
+				end
+			end,
+			desc = "DiffView toggle (Sindrets)",
+		},
 	},
 	opts = {}, -- Runs setup() automatically
 }

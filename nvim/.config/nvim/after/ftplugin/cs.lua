@@ -1,3 +1,4 @@
+-- Filetype plugin for C# files (Since this is what Rider does, I want to do the same)
 -- A tab character is 4 spaces
 vim.opt_local.tabstop = 4
 -- Indentation is 4 spaces

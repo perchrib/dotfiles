@@ -9,7 +9,7 @@ return {
 			dotnet.setup({
 				managed_terminal = {
 					auto_hide = true, -- auto hides terminal if exit code is 0
-					auto_hide_delay = 1000, -- delay before auto hiding, 0 = instant
+					auto_hide_delay = 2000, -- delay before auto hiding, 0 = instant
 					mappings = {
 						next_tab = { lhs = "<Tab>", desc = "Next terminal tab" },
 						prev_tab = { lhs = "<S-Tab>", desc = "Previous terminal tab" },
@@ -144,10 +144,13 @@ return {
 			-- 	dotnet.secrets()
 			-- end, {})
 
-			-- Example keybinding
-			-- vim.keymap.set("n", "<C-p>", function()
-			-- 	dotnet.run_project()
-			-- end)
+			vim.keymap.set("n", "<leader>rr", function()
+				dotnet.run_profile_default()
+			end, { desc = "Run run" })
+
+			vim.keymap.set("n", "<leader>rb", function()
+				dotnet.build_default_quickfix()
+			end, { desc = "Run build" })
 		end,
 	},
 	{
