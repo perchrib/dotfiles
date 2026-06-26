@@ -8,6 +8,7 @@ if command -v lpass >/dev/null 2>&1; then
   source "$HOME/.zsh_secrets_export"
   printf "Secrets updated:\n"
   cat "$HOME/.zsh_secrets_export"
+  rm "$HOME/.zsh_secrets_export"
 else
   echo "lpass is not installed"
 fi
