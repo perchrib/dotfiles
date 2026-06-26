@@ -1,4 +1,4 @@
 **/*.bak
 **/**DS_STORE
 **/*secrets*
-!scripts/update-secrets.sh
+!.scripts/update-secrets.sh
