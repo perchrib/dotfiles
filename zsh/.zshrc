@@ -1,11 +1,14 @@
+
+
+# Enable vim keybindings in the terminal
+bindkey -v
+
 # Bind Keys (This works by default, but not with tmux)
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
-# Enable vim keybindings in the terminal
-bindkey -v
 # Use escape key to switch to normal mode in vim keybindings, this is useful when using tmux which can interfere with the default "jk" or "jj" keybindings
 bindkey '^[' vi-cmd-mode
 # Map jk to escape (vi-cmd-mode)
@@ -67,6 +70,7 @@ alias tn='cd ~/git/nrk/tilt-tekstern/'
 alias tb='cd ~/git/nrk/tilt-tekstebanken/'
 
 alias ls='ls -GF -C'
+alias c='clear'
 
 # alias lvim="NVIM_APPNAME=lazyvim nvim"
 # alias nvim="NVIM_APPNAME= nvim"

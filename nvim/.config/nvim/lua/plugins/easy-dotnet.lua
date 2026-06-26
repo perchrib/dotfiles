@@ -151,6 +151,10 @@ return {
 			vim.keymap.set("n", "<leader>rb", function()
 				dotnet.build_default_quickfix()
 			end, { desc = "Run build" })
+
+			vim.keymap.set("n", "<leader>rw", function()
+				dotnet.watch_default()
+			end, { desc = "Run watch" })
 		end,
 	},
 	{
