@@ -1,5 +1,3 @@
-
-
 # Enable vim keybindings in the terminal
 bindkey -v
 

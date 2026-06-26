@@ -1,8 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
+    - /Users/per-christian.berg/dotfiles
     - /Users/per-christian.berg/git/nrk/tilt-tekstern
     - /Users/per-christian.berg/git/nrk/tilt-tekstebanken
-    - /Users/per-christian.berg/dotfiles
 startuppopupversion: 5
 didshowhunkstaginghint: true
 lastversion: 0.61.1
