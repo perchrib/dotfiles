@@ -138,7 +138,7 @@ function jira() {
     command jira issue list -s~"Done" -s~"Won't fix" -a$(jira me)
   elif [[ "$1" == "w" ]]; then
     command jira issue list -s~"Done" -s~"Won't fix" -w
-  elif [[ "$1" == "do" ]]; then
+  elif [[ "$1" == "todo" ]]; then
     command jira issue list -s"To Do" --order-by rank --reverse
   else
     command jira "$@"
