@@ -146,21 +146,55 @@ return {
 
 			-- TODO fix this to only work within dotnet project and work across
 			-- programming language ie node, svelte etc...
-			vim.keymap.set("n", "<leader>rr", function()
-				dotnet.run_profile_default()
-			end, { desc = "Run run" })
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if not client or not vim.startswith(client.name, "easy_dotnet") then
+						return
+					end
 
-			vim.keymap.set("n", "<leader>rb", function()
-				dotnet.build_default_quickfix()
-			end, { desc = "Run build" })
-
-			vim.keymap.set("n", "<leader>rw", function()
-				dotnet.watch_default()
-			end, { desc = "Run watch" })
-
-			vim.keymap.set("n", "<leader>cp", function()
-				dotnet.add_package()
-			end, { desc = "Run watch" })
+					local opts = { buffer = args.buf }
+					vim.keymap.set(
+						"n",
+						"<leader>rr",
+						dotnet.run_profile_default,
+						vim.tbl_extend("force", opts, { desc = "Dotnet run" })
+					)
+					vim.keymap.set(
+						"n",
+						"<leader>rb",
+						dotnet.build_default_quickfix,
+						vim.tbl_extend("force", opts, { desc = "Dotnet build" })
+					)
+					vim.keymap.set(
+						"n",
+						"<leader>rw",
+						dotnet.watch_default,
+						vim.tbl_extend("force", opts, { desc = "Dotnet watch" })
+					)
+					vim.keymap.set(
+						"n",
+						"<leader>cp",
+						dotnet.add_package,
+						vim.tbl_extend("force", opts, { desc = "Dotnet add package" })
+					)
+				end,
+			})
+			-- vim.keymap.set("n", "<leader>rr", function()
+			-- 	dotnet.run_profile_default()
+			-- end, { desc = "Dotnet run" })
+			--
+			-- vim.keymap.set("n", "<leader>rb", function()
+			-- 	dotnet.build_default_quickfix()
+			-- end, { desc = "Dotnet build" })
+			--
+			-- vim.keymap.set("n", "<leader>rw", function()
+			-- 	dotnet.watch_default()
+			-- end, { desc = "Dotnet watch" })
+			--
+			-- vim.keymap.set("n", "<leader>cp", function()
+			-- 	dotnet.add_package()
+			-- end, { desc = "Dotnet add package" })
 		end,
 	},
 	{
