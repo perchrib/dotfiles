@@ -3,6 +3,15 @@ return {
 	keys = {
 		-- Disable default keymaps, we will set our own to enable DiffView
 		{ "<Leader>gd", false },
+		-- Map <C-7> to toggle terminal, works in tmux not in kitty.
+		{
+			"<C-7>",
+			function()
+				Snacks.terminal()
+			end,
+			mode = { "n", "t" },
+			desc = "Terminal (Toggle)",
+		},
 		{
 			"<leader>fl",
 			function()

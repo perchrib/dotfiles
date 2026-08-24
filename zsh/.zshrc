@@ -7,6 +7,7 @@ bindkey "^E" end-of-line
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
+
 # Use escape key to switch to normal mode in vim keybindings, this is useful when using tmux which can interfere with the default "jk" or "jj" keybindings
 bindkey '^[' vi-cmd-mode
 # Map jk to escape (vi-cmd-mode)

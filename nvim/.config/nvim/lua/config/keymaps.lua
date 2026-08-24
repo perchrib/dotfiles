@@ -1,6 +1,11 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+
+-- Debug keymaps type in command mode:
+-- lua vim.notify(vim.fn.keytrans(vim.fn.getcharstr()))
+-- to see what key you pressed in command mode.
+
 vim.keymap.set("i", "jk", "<ESC>")
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")

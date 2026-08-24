@@ -1,8 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
     - /Users/per-christian.berg/dotfiles
-    - /Users/per-christian.berg/git/nrk/tilt-tekstebanken
     - /Users/per-christian.berg/git/nrk/tilt-tekstern
+    - /Users/per-christian.berg/git/nrk/tilt-tekstebanken
 startuppopupversion: 5
 didshowhunkstaginghint: true
 lastversion: 0.63.1
@@ -11,10 +11,16 @@ hidecommandlog: false
 githubPullRequests:
     /Users/per-christian.berg/dotfiles: []
     /Users/per-christian.berg/git/nrk/tilt-tekstebanken:
+        - headRefName: tilt-911-quickfix-logging
+          number: 481
+          title: 'fix: Log exception in filters'
+          state: OPEN
+          url: https://github.com/nrkno/tilt-tekstebanken/pull/481
+          headRepositoryOwner: nrkno
         - headRefName: tilt-857-conevrter-service
           number: 471
           title: 'feat: Move converters to common project'
-          state: OPEN
+          state: MERGED
           url: https://github.com/nrkno/tilt-tekstebanken/pull/471
           headRepositoryOwner: nrkno
         - headRefName: quickfix-system-tests
@@ -24,9 +30,9 @@ githubPullRequests:
           url: https://github.com/nrkno/tilt-tekstebanken/pull/470
           headRepositoryOwner: nrkno
     /Users/per-christian.berg/git/nrk/tilt-tekstern:
-        - headRefName: tilt-878-sync-state-across-web-browser-clients
-          number: 181
-          title: 'feat: Sync state across web browser clients'
-          state: MERGED
-          url: https://github.com/nrkno/tilt-tekstern/pull/181
+        - headRefName: tilt-919-refactor-undo
+          number: 206
+          title: 'refactor: StateTracker'
+          state: OPEN
+          url: https://github.com/nrkno/tilt-tekstern/pull/206
           headRepositoryOwner: nrkno
