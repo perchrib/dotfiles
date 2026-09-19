@@ -146,6 +146,7 @@ function jira() {
   fi
 }
 
+
 # Print current kubectl context, cluster, and namespace
 function k() {
   local CURRENT_CONTEXT CURRENT_CLUSTER CURRENT_NAMESPACE
@@ -166,4 +167,11 @@ function k() {
   echo -e "${YELLOW}Current cluster:${RESET}   ${YELLOW}$CURRENT_CLUSTER${RESET}"
   echo -e "${GREEN}Current namespace:${RESET} ${GREEN}$CURRENT_NAMESPACE${RESET}"
   echo -e "Note: switch context and namespace with <kubctx> and <kubens>"
+}
+
+# Open incognito browser and copy test email to clipboard
+function azure() {
+  echo -n "tmp652952@nrk.no" | pbcopy
+  open -na "Google Chrome" --args --incognito "https://portal.azure.com"
+  echo "Copied tmp652952@nrk.no to clipboard and opened incognito window"
 }

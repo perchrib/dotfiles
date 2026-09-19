@@ -8,3 +8,6 @@ vim.g.ai_cmp = false
 
 -- Set new line at end of file
 vim.opt.fixeol = true
+
+-- Spell checking: US English and Norwegian
+vim.opt.spelllang = { "en_us", "nb" }

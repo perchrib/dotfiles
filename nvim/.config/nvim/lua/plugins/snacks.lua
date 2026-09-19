@@ -42,12 +42,39 @@ return {
 		picker = {
 			-- ui_select set to used by copilotChat.nvim package.
 			-- ui_select = true,
+			layouts = {
+				-- Wider preview layout, toggle with <C-p> inside any picker
+				wide_preview = {
+					layout = {
+						box = "horizontal",
+						width = 0,
+						height = 0,
+						{
+							box = "vertical",
+							border = "rounded",
+							title = "{source} {live}",
+							{ win = "input", height = 1, border = "bottom" },
+							{ win = "list", border = "none" },
+						},
+						{ win = "preview", border = "rounded", width = 0.7 },
+					},
+				},
+			},
+			actions = {
+				toggle_wide_preview = function(picker)
+					local current = picker.layout and picker.layout.preset or "default"
+					picker:set_layout(current == "wide_preview" and "default" or "wide_preview")
+				end,
+			},
 			win = {
 				input = {
 					keys = {
 						["I"] = { "toggle_ignored" },
 						["H"] = { "toggle_hidden" },
-						["<C-w>"] = { "cycle_win", mode = { "i", "n" } },
+						["<c-w><c-w>"] = { "cycle_win", mode = { "n", "i" } },
+						-- ["<c-w><c-p>"] = { "toggle_preview", mode = { "n", "i" } },
+						["<c-w><c-m>"] = { "toggle_maximize", mode = { "n", "i" } },
+						["<c-w>f"] = { "toggle_wide_preview", mode = { "i", "n" } },
 						-- Not work, overriden by other key, focus window
 						-- ["<c-h>"] = { "focus_list", mode = { "i", "n" } },
 					},

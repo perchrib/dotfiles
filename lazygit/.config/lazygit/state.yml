@@ -5,34 +5,6 @@ recentrepos:
     - /Users/per-christian.berg/git/nrk/tilt-tekstebanken
 startuppopupversion: 5
 didshowhunkstaginghint: true
-lastversion: 0.63.1
+lastversion: 0.64.1
 customcommandshistory: []
 hidecommandlog: false
-githubPullRequests:
-    /Users/per-christian.berg/dotfiles: []
-    /Users/per-christian.berg/git/nrk/tilt-tekstebanken:
-        - headRefName: tilt-911-quickfix-logging
-          number: 481
-          title: 'fix: Log exception in filters'
-          state: OPEN
-          url: https://github.com/nrkno/tilt-tekstebanken/pull/481
-          headRepositoryOwner: nrkno
-        - headRefName: tilt-857-conevrter-service
-          number: 471
-          title: 'feat: Move converters to common project'
-          state: MERGED
-          url: https://github.com/nrkno/tilt-tekstebanken/pull/471
-          headRepositoryOwner: nrkno
-        - headRefName: quickfix-system-tests
-          number: 470
-          title: 'fix: System Tests update plint base url'
-          state: MERGED
-          url: https://github.com/nrkno/tilt-tekstebanken/pull/470
-          headRepositoryOwner: nrkno
-    /Users/per-christian.berg/git/nrk/tilt-tekstern:
-        - headRefName: tilt-919-refactor-undo
-          number: 206
-          title: 'refactor: StateTracker'
-          state: OPEN
-          url: https://github.com/nrkno/tilt-tekstern/pull/206
-          headRepositoryOwner: nrkno
