@@ -157,13 +157,13 @@ return {
 					vim.keymap.set(
 						"n",
 						"<leader>rr",
-						dotnet.run_profile_default,
+						dotnet.run,
 						vim.tbl_extend("force", opts, { desc = "Dotnet run" })
 					)
 					vim.keymap.set(
 						"n",
 						"<leader>rb",
-						dotnet.build_default_quickfix,
+						dotnet.build_solution_quickfix,
 						vim.tbl_extend("force", opts, { desc = "Dotnet build" })
 					)
 					vim.keymap.set(
@@ -198,22 +198,12 @@ return {
 		end,
 	},
 	{
-		{
-			"nvim-lualine/lualine.nvim",
-			dependencies = {
-				"GustavEikaas/easy-dotnet.nvim",
-			},
-			config = function()
-				local job_indicator = {
-					require("easy-dotnet.ui-modules.jobs").lualine,
-				}
-
-				require("lualine").setup({
-					sections = {
-						lualine_a = { "mode", job_indicator },
-					},
-				})
-			end,
+		"nvim-lualine/lualine.nvim",
+		dependencies = {
+			"GustavEikaas/easy-dotnet.nvim",
 		},
+		opts = function(_, opts)
+			table.insert(opts.sections.lualine_a, require("easy-dotnet.ui-modules.jobs").lualine)
+		end,
 	},
 }

@@ -7,5 +7,20 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
--- Auto convert tabs to spaces on save. This is convinent when copying text from other sources like web pages.
--- When git diff it will not show changes due to tabs vs spaces. It will also remove trailing whitespaces.
+-- Ensure the file ends with exactly one newline on save: extra blank lines at the end are
+-- removed, and a missing final newline is added.
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = vim.api.nvim_create_augroup("single_newline_at_eof", { clear = true }),
+	callback = function(args)
+		local bo = vim.bo[args.buf]
+		if bo.binary or not bo.modifiable or bo.buftype ~= "" then
+			return
+		end
+
+		local view = vim.fn.winsaveview()
+		vim.cmd([[silent! keeppatterns %s/\n\+\%$//e]])
+		vim.fn.winrestview(view)
+
+		bo.fixendofline = true
+	end,
+})

@@ -56,3 +56,17 @@ Example:
 ```bash
 brew bundle dump --global --force
 ```
+
+## GNU STOW - Link new dotfiles
+
+If a new dotfile is added under ~/.config/example/example.config. You can run the following command to link it when you
+are under the `~/dotfiles` folder:
+
+```bash
+# Create folder structure:
+mkdir -p ~/example/.config
+# Move the new dotfile to the the "dotfiles" folder:
+mv ~/.config/example example/.config
+# Stow the new dotfile:
+stow example
+```

@@ -49,6 +49,9 @@ source <(kubectl completion zsh)
 # Enable npm autocompletion
 eval "$(npm completion 2>/dev/null)" 
 
+# Enable workmux autocompletion
+eval "$(workmux completions zsh)"
+
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
@@ -70,6 +73,8 @@ alias tb='cd ~/git/nrk/tilt-tekstebanken/'
 
 alias ls='ls -GF -C'
 alias c='clear'
+
+alias ws='workmux'
 
 # alias lvim="NVIM_APPNAME=lazyvim nvim"
 # alias nvim="NVIM_APPNAME= nvim"
@@ -146,6 +151,66 @@ function jira() {
   fi
 }
 
+# Pick a Jira issue assigned to me and create a workmux worktree: <key>-<name> (lowercase)
+# Fetches origin and branches from the latest origin/main (override with --base <ref>).
+# The agent prompt runs the /jira Claude skill (claude/.claude/skills/jira).
+# Prompts: fzf issue picker → task name → optional extra prompt for the agent.
+# In fzf: ctrl-f fullscreen preview, ctrl-o open in nvim, ctrl-/ hide preview, shift-↑/↓ scroll.
+#
+# Usage:
+#   work                    # pick issue, branch from latest origin/main, open window
+#   work -b                 # same, but create the tmux window in the background
+#   work --base develop     # branch from develop instead (skips the fetch)
+#   work -w                 # move uncommitted changes into the new worktree
+#
+# Example:
+#   $ work
+#   (pick TILT-945)
+#   Task name (TILT-945): db schema
+#   Extra prompt (optional): only backend, no review
+#   → workmux add tilt-945-db-schema --base origin/main -p "/jira TILT-945 only backend, no review"
+function work() {
+  local issue key name branch
+  issue=$(command jira issue list -s~"Done" -s~"Won't fix" -a"$(command jira me)" \
+      --plain --no-headers --columns key,summary,status |
+    fzf --prompt=" Jira  " --height=90% --layout=reverse --border --exit-0 \
+      --delimiter='\t' \
+      --preview='JIRA_PAGER=cat jira issue view {1} --plain --comments 10' \
+      --preview-window=right,60%,wrap \
+      --header='ctrl-f: fullscreen preview · ctrl-/: hide preview · ctrl-o: open in nvim · shift-↑/↓: scroll' \
+      --bind='ctrl-f:change-preview-window(up,99%,wrap|right,60%,wrap)' \
+      --bind='ctrl-/:toggle-preview' \
+      --bind='ctrl-o:execute(jira issue view {1} --comments 10)' \
+      --bind='shift-up:preview-page-up,shift-down:preview-page-down')
+  [[ -z $issue ]] && { echo "Nothing selected"; return 0 }
+  key=${issue%%$'\t'*}
+
+  vared -p "Task name ($key): " name
+  [[ -z $name ]] && { echo "No task name given"; return 1 }
+
+  branch="${key}-${name}"
+  branch=${(L)branch}
+  branch=${branch//æ/ae}; branch=${branch//ø/o}; branch=${branch//å/a}
+  branch=$(print -r -- "$branch" | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
+
+  local extra
+  vared -p "Extra prompt (optional): " extra
+
+  # Branch from the latest remote main (origin/HEAD), unless --base is passed
+  local -a base_args
+  if (( ! ${@[(I)--base*]} )); then
+    echo "Fetching origin..."
+    git fetch origin --prune || { echo "git fetch failed"; return 1 }
+    local base=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || echo origin/main)
+    base_args=(--base "$base")
+    echo "Base: $base ($(git log -1 --format='%h %s' "$base"))"
+  fi
+
+  local prompt="/jira $key${extra:+ $extra}"
+  echo "→ workmux add $branch ${base_args[*]} -p \"$prompt\""
+  workmux add "$branch" "${base_args[@]}" -p "$prompt" "$@"
+}
+
 
 # Print current kubectl context, cluster, and namespace
 function k() {
@@ -174,4 +239,89 @@ function azure() {
   echo -n "tmp652952@nrk.no" | pbcopy
   open -na "Google Chrome" --args --incognito "https://portal.azure.com"
   echo "Copied tmp652952@nrk.no to clipboard and opened incognito window"
+}
+
+# Search Google using Antigravity CLI with predefined model and effort
+# Renders the response as markdown (via glow if installed) and shows a
+# spinner while agy is running.
+function g() {
+  if [ -z "$*" ]; then
+    echo "Usage: g <search query>"
+    return 1
+  fi
+
+  # Suppress zsh's "[N] PID" background-job notification; we render our own.
+  setopt local_options no_notify no_monitor
+
+  local MODEL="${AGY_SEARCH_MODEL:-gemini-3.8-flash}"
+  local EFFORT="${AGY_SEARCH_EFFORT:-low}"
+
+  local tmpfile
+  tmpfile=$(mktemp -t agy-search) || return 1
+
+  local agy_pid=0
+  trap 'kill $agy_pid 2>/dev/null; rm -f "$tmpfile"; printf "\r\e[K\e[?25h"; trap - INT; return 130' INT
+
+  agy --model "$MODEL" --effort "$EFFORT" --dangerously-skip-permissions \
+    -p "Search and answer concisely with citations: $*" \
+    >"$tmpfile" 2>&1 &
+  agy_pid=$!
+
+  local spinner=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
+  local i=1
+  local start=$SECONDS
+  printf '\e[?25l'
+  while kill -0 "$agy_pid" 2>/dev/null; do
+    printf '\r\e[K\e[36m%s\e[0m Searching \e[2m[%s effort=%s pid=%d %ds]\e[0m' \
+      "${spinner[i]}" "$MODEL" "$EFFORT" "$agy_pid" "$((SECONDS - start))"
+    i=$(( i % 10 + 1 ))
+    sleep 0.1
+  done
+  printf '\r\e[K\e[?25h'
+
+  wait "$agy_pid"
+  local rc=$?
+  trap - INT
+
+  # Pre-process: turn list markers into bold-bullet paragraphs so glow (which
+  # collapses list spacing) renders each item with a real blank line between.
+  local preprocessed
+  preprocessed=$(mktemp -t agy-pre) || { rm -f "$tmpfile"; return 1; }
+  perl -0777 -pe '
+    s{^(\s*)([-*+])\s+}{\n$1**\x{2022}** }gm;
+    s{^(\s*)(\d+\.)\s+}{\n$1**$2** }gm;
+  ' "$tmpfile" >"$preprocessed"
+
+  # Render, then underline URLs.
+  {
+    if command -v glow >/dev/null 2>&1; then
+      glow -s dark - <"$preprocessed"
+    else
+      cat "$preprocessed"
+    fi
+  } | perl -pe '
+    BEGIN { $E = chr(27); $U = $E . "[4m"; $R = $E . "[24m"; }
+    s{(https?://[^\s)>]+)}{$U$1$R}g;
+  '
+
+  printf '\e[2m[done in %ds]\e[0m\n' "$((SECONDS - start))"
+
+  rm -f "$tmpfile" "$preprocessed"
+  return $rc
+}
+
+# Quick DuckDuckGo search — no LLM, ~1s. Use for simple lookups where you just
+# want links and snippets rather than a synthesized answer.
+function gq() {
+  if [ -z "$*" ]; then
+    echo "Usage: gq <search query>"
+    return 1
+  fi
+
+  if ! command -v ddgr >/dev/null 2>&1; then
+    echo "gq requires ddgr. Install with: brew install ddgr" >&2
+    return 1
+  fi
+
+  ddgr -n 5 --np "$*"
 }
