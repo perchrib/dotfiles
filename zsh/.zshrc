@@ -325,3 +325,18 @@ function gq() {
 
   ddgr -n 5 --np "$*"
 }
+
+# Store the current git branch in a tmux pane option on every prompt. tmux's
+# automatic-rename-format (see .tmux.conf) uses it to name the window after the
+# branch, falling back to the running command outside git repos.
+function _tmux_set_branch() {
+  [[ -n $TMUX ]] || return
+  local branch=$(git branch --show-current 2>/dev/null)
+  if [[ -n $branch ]]; then
+    tmux set -p @branch "$branch"
+  else
+    tmux set -pu @branch
+  fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _tmux_set_branch

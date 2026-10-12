@@ -58,6 +58,11 @@
       "key" : "j",
       "label" : "URLs",
       "type" : "group"
+    },
+    {
+      "key" : "d",
+      "type" : "application",
+      "value" : "/Applications/DBeaver.app"
     }
   ],
   "type" : "group"
