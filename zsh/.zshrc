@@ -146,8 +146,37 @@ function jira() {
     command jira issue list -s~"Done" -s~"Won't fix" -w
   elif [[ "$1" == "todo" ]]; then
     command jira issue list -s"To Do" --order-by rank --reverse
+  elif [[ "$1" == "c" ]]; then
+    shift
+    jira-create "$@"
   else
     command jira "$@"
+  fi
+}
+
+# Pick an open epic with fzf, then run `jira issue create -P<EPIC>` (interactive prompts follow).
+# Pick "(no epic)" to create the issue without a parent. Extra args are passed through.
+#
+# Usage:
+#   jira c                  # pick epic → jira issue create -PTILT-729
+#   jira c -tBug -s"Title"  # same, with extra flags passed to jira issue create
+function jira-create() {
+  local epic key
+  epic=$({ print -r -- "(no epic)"; command jira epic list --table --plain --no-headers \
+      --columns key,summary,status -s~"Done" -s~"Won't fix" } |
+    fzf --prompt=" Epic  " --height=90% --layout=reverse --border --exit-0 \
+      --delimiter='\t' \
+      --preview='[[ {1} == "(no epic)" ]] || JIRA_PAGER=cat jira issue view {1} --plain' \
+      --preview-window=right,60%,wrap \
+      --bind='ctrl-/:toggle-preview')
+  [[ -z $epic ]] && { echo "Nothing selected"; return 0 }
+
+  if [[ $epic == "(no epic)" ]]; then
+    command jira issue create "$@"
+  else
+    key=${epic%%$'\t'*}
+    echo "→ jira issue create -P$key $*"
+    command jira issue create -P"$key" "$@"
   fi
 }
 

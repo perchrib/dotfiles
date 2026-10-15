@@ -24,3 +24,5 @@ vim.keymap.set("n", "yP", function()
 	vim.fn.setreg("+", path)
 	vim.notify("Yanked relative path: " .. path)
 end, { desc = "Yank relative file path to clipboard" })
+
+vim.keymap.set("c", "<C-a>", "<Home>", { silent = false })

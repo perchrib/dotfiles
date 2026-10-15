@@ -28,10 +28,10 @@ export SQLCMDMAXFIXEDTYPEWIDTH=30
 Example connection string for SQL Server:
 
 * sqlserver://sa:Secret1234@localhost/TeksternDb
-* sqlserver://sa:Secret1234@localhost:1433/TeksternDb?authentication=ActiveDirectoryDefault
+* sqlserver://servername.database.windows.net/TeksternDb?authentication=ActiveDirectoryDefault
   * Note: enables login with azure ad. Need to login in in
   terminal with `az login` first, and also need to have the
-  Azure CLI installed with brew
+  Azure CLI installed with brew.
 
 ## Hotkeys - Workflows
 
