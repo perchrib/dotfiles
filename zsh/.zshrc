@@ -83,6 +83,8 @@ alias ws='workmux'
 alias z="nvim $HOME/.zshrc"
 alias s="source $HOME/.zshrc"
 
+alias pkill="kill -9 \$(lsof -i -P -n | fzf | awk '{print \$2}')"
+
 # Neovim switch between neovim configs default=lazyvim
 function nvims() {
 	items=("default (lazyvim)" "nvim-myconfig")
@@ -101,12 +103,9 @@ function nvims() {
 # Update secrets used as environment variables
 # Verify with "printenv" command
 # Delete with "unset <variable_name>"
-function update-secrets() {
-  filepath_update_secrets="$HOME/dotfiles/.scripts/update-secrets.sh"
-  # Set the file executeble
-  chmod +x $filepath_update_secrets
-  # Run bash script
-  . $filepath_update_secrets
+function secrets() {
+  # Run in a subshell so `exit` in the script doesn't close this shell
+  bash "$HOME/dotfiles/.scripts/update-secrets.sh"
 }
 
 # Open urls from laspass
@@ -172,12 +171,17 @@ function jira-create() {
   [[ -z $epic ]] && { echo "Nothing selected"; return 0 }
 
   if [[ $epic == "(no epic)" ]]; then
-    command jira issue create "$@"
+    command jira issue create "$@" || return
   else
     key=${epic%%$'\t'*}
     echo "→ jira issue create -P$key $*"
-    command jira issue create -P"$key" "$@"
+    command jira issue create -P"$key" "$@" || return
   fi
+
+  # Copy the new issue key to the clipboard (newest issue reported by me)
+  key=$(command jira issue list -r"$(command jira me)" --order-by created \
+    --paginate 1 --plain --no-headers --columns key 2>/dev/null)
+  [[ -n $key ]] && { print -n -- "${key:l}" | pbcopy; echo "📋 Copied ${key:l} to clipboard" }
 }
 
 # Pick a Jira issue assigned to me and create a workmux worktree: <key>-<name> (lowercase)

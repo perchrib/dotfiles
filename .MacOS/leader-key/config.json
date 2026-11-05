@@ -63,6 +63,12 @@
       "key" : "d",
       "type" : "application",
       "value" : "/Applications/DBeaver.app"
+    },
+    {
+      "key" : "t",
+      "label" : "Todo",
+      "type" : "application",
+      "value" : "/Users/per-christian.berg/Applications/Chrome Apps.localized/Google Tasks.app"
     }
   ],
   "type" : "group"

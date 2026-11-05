@@ -24,3 +24,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		bo.fixendofline = true
 	end,
 })
+
+-- Open the quickfix window automatically when there are errors, but not for location lists
+vim.api.nvim_create_autocmd("QuickFixCmdPost", { pattern = "[^l]*", command = "cwindow" })
