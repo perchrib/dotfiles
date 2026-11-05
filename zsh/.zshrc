@@ -6,6 +6,8 @@ bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
+# Alt/Option not work on mac, so use "ç" key instead of "alt+." to trigger fzf-cd-widget
+bindkey "ç" fzf-cd-widget
 
 
 # Use escape key to switch to normal mode in vim keybindings, this is useful when using tmux which can interfere with the default "jk" or "jj" keybindings
@@ -357,6 +359,20 @@ function gq() {
   fi
 
   ddgr -n 5 --np "$*"
+}
+
+# Pick an installed Ollama model with fzf and run it. `o <model>` skips the picker.
+function o() {
+  local model=$1
+  if [[ -z $model ]]; then
+    # Sort by size ascending: prefix each row with its size in bytes, sort numerically, then strip it.
+    model=$(ollama list | tail -n +2 \
+      | awk '{m=($4=="KB")?1e3:($4=="MB")?1e6:($4=="GB")?1e9:($4=="TB")?1e12:1; print $3*m "\t" $0}' \
+      | sort -n | cut -f2- \
+      | fzf --prompt=" Ollama  " --height=~50% --layout=reverse --border --exit-0 | awk '{print $1}')
+    [[ -z $model ]] && { echo "Nothing selected"; return 0; }
+  fi
+  ollama run "$model"
 }
 
 # Store the current git branch in a tmux pane option on every prompt. tmux's
