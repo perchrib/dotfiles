@@ -173,17 +173,12 @@ function jira-create() {
   [[ -z $epic ]] && { echo "Nothing selected"; return 0 }
 
   if [[ $epic == "(no epic)" ]]; then
-    command jira issue create "$@" || return
+    command jira issue create "$@"
   else
     key=${epic%%$'\t'*}
     echo "→ jira issue create -P$key $*"
-    command jira issue create -P"$key" "$@" || return
+    command jira issue create -P"$key" "$@"
   fi
-
-  # Copy the new issue key to the clipboard (newest issue reported by me)
-  key=$(command jira issue list -r"$(command jira me)" --order-by created \
-    --paginate 1 --plain --no-headers --columns key 2>/dev/null)
-  [[ -n $key ]] && { print -n -- "${key:l}" | pbcopy; echo "📋 Copied ${key:l} to clipboard" }
 }
 
 # Pick a Jira issue assigned to me and create a workmux worktree: <key>-<name> (lowercase)
@@ -361,19 +356,54 @@ function gq() {
   ddgr -n 5 --np "$*"
 }
 
-# Pick an installed Ollama model with fzf and run it. `o <model>` skips the picker.
+# Run an Ollama model. Override the default with OLLAMA_DEFAULT_MODEL.
+#
+# Usage:
+#   o            # run the default model
+#   o list       # pick an installed model with fzf and run it
+#   o <model>    # run a specific model
 function o() {
-  local model=$1
-  if [[ -z $model ]]; then
-    # Sort by size ascending: prefix each row with its size in bytes, sort numerically, then strip it.
+  local model=${1:-${OLLAMA_DEFAULT_MODEL:-qwen3-coder:latest}}
+  if [[ $model == "list" ]]; then
+    # Sort by size descending: prefix each row with its size in bytes, sort numerically, then strip it.
     model=$(ollama list | tail -n +2 \
       | awk '{m=($4=="KB")?1e3:($4=="MB")?1e6:($4=="GB")?1e9:($4=="TB")?1e12:1; print $3*m "\t" $0}' \
-      | sort -n | cut -f2- \
+      | sort -rn | cut -f2- \
       | fzf --prompt=" Ollama  " --height=~50% --layout=reverse --border --exit-0 | awk '{print $1}')
     [[ -z $model ]] && { echo "Nothing selected"; return 0; }
   fi
   ollama run "$model"
 }
+
+# Lim inn bilde fra utklippstavlen på macOS
+vclip() {
+    local filename="${1:-bilde.png}"
+    # Sørg for at filnavnet slutter på .png
+    [[ "$filename" != *.png ]] && filename="${filename}.png"
+
+    # AppleScript krever absolutt sti
+    [[ "$filename" != /* ]] && filename="$PWD/$filename"
+
+    # Kopiert fil i Finder: utklippstavlen har bare filikonet som PNG, så kopier selve fila
+    local src
+    src=$(osascript -e 'POSIX path of (the clipboard as «class furl»)' 2>/dev/null)
+    if [[ -n "$src" && -f "$src" ]]; then
+        sips -s format png "$src" --out "$filename" >/dev/null 2>&1
+    else
+        osascript \
+            -e "set f to open for access POSIX file \"$filename\" with write permission" \
+            -e "set eof f to 0" \
+            -e "write (the clipboard as «class PNGf») to f" \
+            -e "close access f" 2>/dev/null
+    fi
+
+    if [ $? -eq 0 ]; then
+        echo "✅ Bildet ble lagret som: $filename"
+    else
+        echo "❌ Kunne ikke lime inn. Er du sikker på at du har kopiert et bilde?"
+    fi
+}
+
 
 # Store the current git branch in a tmux pane option on every prompt. tmux's
 # automatic-rename-format (see .tmux.conf) uses it to name the window after the

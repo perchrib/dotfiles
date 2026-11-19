@@ -43,7 +43,7 @@ return {
 			-- ui_select set to used by copilotChat.nvim package.
 			-- ui_select = true,
 			layouts = {
-				-- Wider preview layout, toggle with <C-p> inside any picker
+				-- Wider preview layout, toggle with <C-w><C-p> inside any picker
 				wide_preview = {
 					layout = {
 						box = "horizontal",
@@ -62,8 +62,10 @@ return {
 			},
 			actions = {
 				toggle_wide_preview = function(picker)
-					local current = picker.layout and picker.layout.preset or "default"
-					picker:set_layout(current == "wide_preview" and "default" or "wide_preview")
+					-- picker.layout is the window object and has no `preset`, so track the state ourselves.
+					-- set_layout(nil) restores the picker's original layout.
+					picker.wide_preview = not picker.wide_preview
+					picker:set_layout(picker.wide_preview and "wide_preview" or nil)
 				end,
 			},
 			win = {
@@ -71,10 +73,11 @@ return {
 					keys = {
 						["I"] = { "toggle_ignored" },
 						["H"] = { "toggle_hidden" },
-						["<c-w><c-w>"] = { "cycle_win", mode = { "n", "i" } },
+						["<c-w><c-w>"] = { "cycle_win", mode = { "n" } },
 						-- ["<c-w><c-p>"] = { "toggle_preview", mode = { "n", "i" } },
-						["<c-w><c-m>"] = { "toggle_maximize", mode = { "n", "i" } },
-						["<c-w>f"] = { "toggle_wide_preview", mode = { "i", "n" } },
+						-- <c-m> is the same key as <CR> in most terminals, so use plain `m`
+						["<c-w><c-f>"] = { "toggle_maximize", mode = { "n" } },
+						["<c-w><c-p>"] = { "toggle_wide_preview", mode = { "n" } },
 						-- Not work, overriden by other key, focus window
 						-- ["<c-h>"] = { "focus_list", mode = { "i", "n" } },
 					},

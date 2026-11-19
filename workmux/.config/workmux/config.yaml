@@ -3,12 +3,13 @@ nerdfont: true
 base_branch: auto
 panes:
   # 1. Left pane: Opens LazyVim and makes it the active pane
-  - command: nvim
-    focus: true
-    name: editor
+  # - command: nvim
+  #   focus: true
+  #   name: editor
 
   # 2. Right pane: Splits horizontally (side-by-side) for Claude Code
   - command: claude
-    split: horizontal
-    percentage: 40
+    focus: true
+    # split: horizontal
+    # percentage: 40
     name: claude

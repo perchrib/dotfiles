@@ -13,6 +13,11 @@ function M.new(opts)
 		return self
 	end
 
+	if vim.fn.executable("rg") == 0 then
+		css_variables = {}
+		return self
+	end
+
 	local args = {
 		"--no-ignore",
 		"-oP",
