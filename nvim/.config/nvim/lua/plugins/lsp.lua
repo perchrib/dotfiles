@@ -23,6 +23,15 @@ return {
 							mode = { "n", "v" },
 							has = "codeAction",
 						},
+						-- Hover + SVG icon preview + Roslyn escape fix, see lua/custom/hover.lua
+						{
+							"K",
+							function()
+								require("custom.hover").hover()
+							end,
+							desc = "Hover",
+							has = "hover",
+						},
 					},
 				},
 			},

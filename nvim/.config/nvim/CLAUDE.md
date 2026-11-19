@@ -66,6 +66,7 @@ LazyVim extras are toggled in `lazyvim.json` (not in Lua files). Do not add extr
 | `<leader>gq` | normal | Close diffview |
 | `<leader>fl` | normal | Scratch todo list |
 | `<leader>fL` | normal | Persistent TODO.md |
+| `K` | normal | LSP hover; on `<svg>` string variables it shows the icon in a float instead (K again = normal hover), and fixes Roslyn's escaped `<`/`>` in C# hovers (`lua/custom/hover.lua`) |
 
 Snacks picker extras (active while picker is open):
 - `<C-h>` / `<C-l>` — toggle focus list/preview
